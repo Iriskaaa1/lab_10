@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 2</title>
+    <style>
+        table {
+            width: 300px;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <a href="3index.html" target="_blank">Задание 3</a>
+    <script>
+          function Person(name, age, height) {
+        this.name = name;
+        this.age = age;
+        this.height = height;
+        this.displayData = function() {
+            return `
+                <table>
+                    <tr>
+                        <th>ФИО</th>
+                        <th>Возраст</th>
+                        <th>Рост</th>
+                    </tr>
+                    <tr>
+                        <td>${this.name}</td>
+                        <td>${this.age}</td>
+                        <td>${this.height}</td>
+                    </tr>
+                </table>
+            `;
+        };
+    }
+
+    function createPeople() {
+        const people = [];
+
+        while (true) {
+            const input = prompt("Введите данные человека (ФИО, возраст, рост) или нажмите отмена для завершения:");
+
+            if (!input) {
+                break;
+            }
+
+            const data = input.split(',');
+            if(data.length !== 3) {
+                alert("Пожалуйста, введите данные в формате: ФИО, возраст, рост");
+                continue;
+            } 
+
+            const [name, age, height] = data;
+
+            const person = new Person(name.trim(), parseInt(age.trim(), 10), parseFloat(height.trim()));
+            if (!isNaN(person.age) && !isNaN(person.height)) {
+                people.push(person);
+            } else {
+                alert("Возраст и рост должны быть числами");
+            }
+        }
+
+        return people;
+    }
+
+    const people = createPeople();
+    people.forEach(person => {
+        document.body.insertAdjacentHTML('beforeend', person.displayData());
+    });
+    </script>
+</body>
+</html>

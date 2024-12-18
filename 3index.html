@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 3 </title>
+</head>
+<body>
+    <script>
+        // Базовый класс для человека
+        class Person {
+            constructor(name, age) {
+                this.name = name; // Поле для хранения имени
+                this.age = age; // Поле для хранения возраста
+            }
+    
+            // Метод для получения строки с данными в HTML в абзацах
+            getFieldStr() 
+            {
+                // Возвращает строку с каждым полем в <p></p>
+                return `
+                    <p>ФИО: ${this.name}</p>
+                    <p>Возраст: ${this.age}</p>
+                `;
+            }
+    
+            // Метод для получения строки с данными, помещенными в <div>
+            getDataStr() {
+                // Возвращает строку с результатом вызова getFieldStr() в <div></div>
+                return `<div>${this.getFieldStr()}</div>`;
+            }
+        }
+    
+        // Класс сотрудника, наследующий от Person
+        class Employee extends Person {
+            constructor(name, age, position) {
+                // Вызов конструктора базового класса
+                super(name, age);
+                this.position = position; // Поле для хранения должности
+            }
+    
+            // Переопределение метода для получения строки с данными
+            getDataStr() {
+                // Использует getFieldStr() и добавляет должность
+                return `
+                    <div>
+                        ${this.getFieldStr()}
+                        <p>Должность: ${this.position}</p>
+                    </div>
+                `;
+            }
+        }
+    
+        // Создание массива с объектами Person и Employee
+
+        const people = [
+            new Person("Иван Иванов", 30),
+            new Employee("Мария Петрова", 25, "Менеджер"),
+            new Person("Алексей Смирнов", 40),
+            new Employee("Наталья Сидорова", 35, "Инженер")
+        ];
+    
+        // Отображение данных объектов на странице
+        people.forEach(person => {
+            // Для каждого объекта добавляем HTML в body
+            document.body.insertAdjacentHTML('beforeend', person.getDataStr());
+        });
+    </script>
+</body>
+</html>
